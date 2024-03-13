@@ -46,7 +46,7 @@ function App() {
           onChange={handleFileChange}
           multiple // Allow multiple file selection
         />
-        <button className="my-3" onClick={uploadImages}>
+        <button className="my-3 btn btn-outline-success" onClick={uploadImages}>
           Upload Images
         </button>
       </div>
