@@ -19,8 +19,10 @@ function App() {
 
     imagesUpload.forEach((image) => {
       const storageRef = ref(storage, `images/${image.name + v4()}`);
-      uploadBytes(storageRef, image).then(() => {
-        alert("Image was uploaded successfully");
+      uploadBytes(storageRef, image).then((snaphsot) => {
+        getDownloadURL(snaphsot.ref).then((url) => {
+          setImageList((prev) => [...prev, url]);
+        });
       });
     });
   };
@@ -42,9 +44,11 @@ function App() {
           type="file"
           className="form-control mt-5"
           onChange={handleFileChange}
-          multiple  // Allow multiple file selection
+          multiple // Allow multiple file selection
         />
-        <button className="my-3" onClick={uploadImages}>Upload Images</button>
+        <button className="my-3" onClick={uploadImages}>
+          Upload Images
+        </button>
       </div>
       <div className="row mt-3">
         <div className="col-md-10 offset-1">
@@ -52,7 +56,7 @@ function App() {
             imageList.map((url) => {
               return (
                 <img
-                  key={url}  // Add a unique key for each image
+                  key={url} // Add a unique key for each image
                   style={{
                     width: "200px",
                     height: "200px",
